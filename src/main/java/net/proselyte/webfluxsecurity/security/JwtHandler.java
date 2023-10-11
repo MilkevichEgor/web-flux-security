@@ -36,7 +36,7 @@ public class JwtHandler {
     private Claims getClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
     }
 
