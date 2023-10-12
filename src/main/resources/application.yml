@@ -11,6 +11,9 @@ spring:
     baselineOnMigrate: true
     logging: true
   r2dbc:
+#    url: ${DB_NAME}
+#    user: ${DB_USER}
+#    password: ${DB_PASSWORD}
     url: r2dbc:postgresql://localhost:5433/fusiondb
     username: egor
     password: fusion

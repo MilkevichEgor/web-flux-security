@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
@@ -28,7 +29,7 @@ public class WebSecurityConfig {
     private String secret;
 
     private final String [] publicRoutes = {
-        "/api/v1/auth/register", "/api/v1/auth/login"
+        "/api/v1/auth/register", "/api/v1/auth/login", "/**"
     };
 
     @Bean
@@ -54,6 +55,7 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
 
     private AuthenticationWebFilter bearerAuthenticationFilter(AuthenticationManager authenticationManager) {
         AuthenticationWebFilter bearerAuthenticationFilter = new AuthenticationWebFilter(authenticationManager);
