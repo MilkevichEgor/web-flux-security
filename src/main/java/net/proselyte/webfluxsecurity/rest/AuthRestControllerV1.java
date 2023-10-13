@@ -6,13 +6,10 @@ import net.proselyte.webfluxsecurity.dto.AuthResponseDto;
 import net.proselyte.webfluxsecurity.dto.UserDto;
 import net.proselyte.webfluxsecurity.entity.UserEntity;
 import net.proselyte.webfluxsecurity.mapper.UserMapper;
-import net.proselyte.webfluxsecurity.repository.UserRepository;
 import net.proselyte.webfluxsecurity.security.CustomPrincipal;
-import net.proselyte.webfluxsecurity.security.SecurityService;
 import net.proselyte.webfluxsecurity.service.AuthService;
 import net.proselyte.webfluxsecurity.service.UserService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
@@ -26,7 +23,6 @@ public class AuthRestControllerV1 {
     private final UserService userService;
     private final UserMapper userMapper;
     private final Sinks.Many<String> sink;
-
 
     @PostMapping("/register")
     public Mono<UserDto> register(@RequestBody UserDto dto) {
@@ -43,7 +39,7 @@ public class AuthRestControllerV1 {
     @GetMapping("/info")
     public Mono<UserDto> getUserInfo(Authentication authentication) {
 
-        sink.emitNext("Hello " + authentication.getName(), Sinks.EmitFailureHandler.FAIL_FAST);
+        sink.emitNext("Welcome " + authentication.getName(), Sinks.EmitFailureHandler.FAIL_FAST);
 
         CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
 
