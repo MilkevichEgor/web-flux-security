@@ -32,6 +32,7 @@ dependencies {
 	implementation "io.jsonwebtoken:jjwt:$jsonWebTokenVersion"
 	implementation "javax.xml.bind:jaxb-api:$jaxbApiVersion"
 	implementation 'org.projectlombok:lombok:1.18.18'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 //	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 
@@ -42,6 +43,8 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+
 }
 
 tasks.named('test') {

@@ -38,7 +38,6 @@ public class AuthRestControllerV1 {
 
     @GetMapping("/info")
     public Mono<UserDto> getUserInfo(Authentication authentication) {
-
         sink.emitNext("Welcome " + authentication.getName(), Sinks.EmitFailureHandler.FAIL_FAST);
 
         CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
