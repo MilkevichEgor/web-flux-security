@@ -4,8 +4,10 @@ import net.emapp.webfluxsecurity.entity.BookEntity;
 import net.emapp.webfluxsecurity.repository.BookRepository;
 import net.emapp.webfluxsecurity.service.BookService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.Sinks;
@@ -48,9 +50,9 @@ public class BookController {
         return bookService.updateBook(bookId, book);
     }
 
-    @DeleteMapping("/{bookId}")
-    public Mono<Void> deleteBook(@PathVariable Long bookId) {
-        return bookService.deleteBook(bookId);
-    }
+//    @DeleteMapping("/{bookId}")
+//    public Mono<Void> deleteBook(@PathVariable Long bookId) {
+//        return bookService.deleteBook(bookId);
+//    }
 }
 

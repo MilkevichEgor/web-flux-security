@@ -22,7 +22,4 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
                 .switchIfEmpty(Mono.error(new UnauthorizedException("User disabled")))
                 .map(user -> authentication);
     }
-
-
-
 }

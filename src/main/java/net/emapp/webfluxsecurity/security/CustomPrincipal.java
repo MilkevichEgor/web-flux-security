@@ -13,4 +13,5 @@ public class CustomPrincipal implements Principal {
 
     private Long id;
     private String name;
+
 }

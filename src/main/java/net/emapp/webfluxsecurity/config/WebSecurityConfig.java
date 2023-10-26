@@ -1,6 +1,7 @@
 package net.emapp.webfluxsecurity.config;
 
 import lombok.extern.slf4j.Slf4j;
+import net.emapp.webfluxsecurity.entity.UserRole;
 import net.emapp.webfluxsecurity.security.AuthenticationManager;
 import net.emapp.webfluxsecurity.security.BearerTokenServerAuthenticationConverter;
 import net.emapp.webfluxsecurity.security.JwtHandler;
@@ -32,19 +33,22 @@ public class WebSecurityConfig {
         "/api/v1/auth/register", "/api/v1/auth/login", "/test"
     };
 
+    private final String [] adminRoutes = {
+        "/api/admin/**"
+    };
 
-    @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, AuthenticationManager authenticationManager) {
-        http
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
-                .authenticationManager(authenticationManager)
-                .authorizeExchange((exchanges) -> exchanges
-                        .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                        .pathMatchers(publicRoutes).permitAll()
-                        .anyExchange()
-                        .authenticated()
-                )
+        @Bean
+        public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, AuthenticationManager authenticationManager) {
+            http
+                    .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                    .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
+                    .authorizeExchange((exchanges) -> exchanges
+                            .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                            .pathMatchers(publicRoutes).permitAll()
+                            .pathMatchers(adminRoutes).hasAuthority(UserRole.ADMIN.name())
+                            .anyExchange()
+                            .authenticated()
+                    )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint((swe , e) -> {
                     log.error("IN securityWebFilterChain - unauthorized error: {}", e.getMessage());
                     return Mono.fromRunnable(() -> swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED));

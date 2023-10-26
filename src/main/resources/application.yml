@@ -23,6 +23,12 @@ spring:
     username: user
     password: password
 
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+
 jwt:
   password:
     encoder:

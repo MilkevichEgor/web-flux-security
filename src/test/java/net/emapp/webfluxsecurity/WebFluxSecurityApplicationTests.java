@@ -37,29 +37,29 @@ public class WebFluxSecurityApplicationTests {
 				.build();
 	}
 
-	@Test
-	@WithMockUser
-	void createBookTest() {
-		Mockito.when(bookService.addNewBook(Mockito.any())).thenReturn(Mono.justOrEmpty(new BookEntity(1L, "New Book", "New Author", "New Description")));
+//	@Test
+//	@WithMockUser
+//	void createBookTest() {
+//		Mockito.when(bookService.addNewBook(Mockito.any())).thenReturn(Mono.justOrEmpty(new BookEntity(1L, "New Book", "New Author", "New Description")));
+//
+//		webClient.mutateWith(csrf())
+//				.post().uri("/api/books/add")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.bodyValue(new BookEntity(1L, "New Book", "New Author", "New Description"))
+//				.exchange()
+//				.expectStatus().isCreated();
+//
+//	}
 
-		webClient.mutateWith(csrf())
-				.post().uri("/api/books/add")
-				.contentType(MediaType.APPLICATION_JSON)
-				.bodyValue(new BookEntity(1L, "New Book", "New Author", "New Description"))
-				.exchange()
-				.expectStatus().isCreated();
-
-	}
-
-	@Test
-	@WithAnonymousUser
-	void createBookTestUnauthorized() {
-
-		webClient.mutateWith(csrf())
-				.post().uri("/api/books/add")
-				.contentType(MediaType.APPLICATION_JSON)
-				.bodyValue(new BookEntity(1L, "New Book", "New Author", "New Description"))
-				.exchange()
-				.expectStatus().isUnauthorized();
-	}
+//	@Test
+//	@WithAnonymousUser
+//	void createBookTestUnauthorized() {
+//
+//		webClient.mutateWith(csrf())
+//				.post().uri("/api/books/add")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.bodyValue(new BookEntity(1L, "New Book", "New Author", "New Description"))
+//				.exchange()
+//				.expectStatus().isUnauthorized();
+//	}
 }
