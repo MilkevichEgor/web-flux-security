@@ -16,8 +16,8 @@ import reactor.core.publisher.Sinks;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
-public class AuthRestControllerV1 {
+@RequestMapping("/api/auth")
+public class AuthController {
 
     private final AuthService authService;
     private final UserService userService;
@@ -46,11 +46,4 @@ public class AuthRestControllerV1 {
                 .map(userMapper::map);
     }
 
-//    public Mono<AuthResponseDto> authenticate1(@RequestBody AuthRequestDto dto) {
-//        WebClient client = WebClient.create("http://localhost:8083");
-//        return client.post()
-//                .bodyValue(dto)
-//                .retrieve()
-//                .bodyToMono(AuthResponseDto.class);
-//    }
 }

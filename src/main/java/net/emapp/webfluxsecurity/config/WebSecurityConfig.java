@@ -30,7 +30,7 @@ public class WebSecurityConfig {
     private String secret;
 
     private final String [] publicRoutes = {
-        "/api/v1/auth/register", "/api/v1/auth/login", "/test"
+        "/api/auth/register", "/api/auth/login", "/test"
     };
 
     private final String [] adminRoutes = {
@@ -62,7 +62,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
 
     private AuthenticationWebFilter bearerAuthenticationFilter(AuthenticationManager authenticationManager) {
         AuthenticationWebFilter bearerAuthenticationFilter = new AuthenticationWebFilter(authenticationManager);

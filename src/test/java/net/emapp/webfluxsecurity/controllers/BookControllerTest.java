@@ -1,14 +1,14 @@
-package net.emapp.webfluxsecurity;
+package net.emapp.webfluxsecurity.controllers;
 
 import net.emapp.webfluxsecurity.config.WebSecurityConfig;
 import net.emapp.webfluxsecurity.controller.bookController.BookController;
 import net.emapp.webfluxsecurity.entity.BookEntity;
-import net.emapp.webfluxsecurity.entity.UserRole;
 import net.emapp.webfluxsecurity.errorhandling.AppErrorAttributes;
 import net.emapp.webfluxsecurity.repository.BookRepository;
 import net.emapp.webfluxsecurity.security.AuthenticationManager;
 import net.emapp.webfluxsecurity.service.BookService;
 import net.emapp.webfluxsecurity.service.UserService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,16 +52,16 @@ class BookControllerTest {
 
     @Test
     @WithMockUser
+    @DisplayName("Test create book")
     void createBookTest() {
-        var mock = Mockito.when(bookService.addNewBook(Mockito.any())).thenReturn(Mono.justOrEmpty(new BookEntity(1L, "New Book", "New Author", "New Description")));
+        Mockito.when(bookService.addNewBook(Mockito.any())).thenReturn(Mono.justOrEmpty(new BookEntity(1L, "New Book", "New Author", "New Description")));
 
         webTestClient.mutateWith(csrf())
                 .post().uri("/api/books/add")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(mock)
+                .bodyValue(new BookEntity(1L, "New Book", "New Author", "New Description"))
                 .exchange()
                 .expectStatus().isCreated();
-
     }
     @Test
     @WithAnonymousUser

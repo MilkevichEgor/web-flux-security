@@ -47,7 +47,6 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-
     public Mono<UserEntity> updateUser(Long id, UserEntity user) {
         return userRepository.findById(id)
                 .flatMap(u -> {

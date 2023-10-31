@@ -1,4 +1,4 @@
-package net.emapp.webfluxsecurity;
+package net.emapp.webfluxsecurity.serialization;
 
 import net.emapp.webfluxsecurity.entity.BookEntity;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class BookJsonTest {
     public void BookSerializationTest() throws IOException {
 
         BookEntity bookEntity = new BookEntity( 1L, "Dune", "Gerbert", "Description");
-        assertThat(json.write(bookEntity)).isStrictlyEqualToJson("expected.json");
+        assertThat(json.write(bookEntity)).isStrictlyEqualToJson("book_expected.json");
         assertThat(json.write(bookEntity)).hasJsonPathNumberValue("@.id");
         assertThat(json.write(bookEntity)).extractingJsonPathNumberValue("@.id").isEqualTo(1);
         assertThat(json.write(bookEntity)).hasJsonPathStringValue("@.title");

@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "username": "egor",
+  "password": "password",
+  "role": "ADMIN",
+  "firstName": "Egor",
+  "lastName": "Milkevich",
+  "enabled": true,
+  "createdAt": "2023-10-26T15:30:00",
+  "updatedAt": "2023-10-26T15:30:00"
+}
