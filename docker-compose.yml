@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_DB: fusiondb
+      POSTGRES_USER: egor
+      POSTGRES_PASSWORD: fusion
+    ports:
+      - "5433:5432"
+  rabbit-mq:
+    
+
+    # volumes:
+    #   - /home/fusion/works/billing-job/src/sql/:/mnt/:rw
+
+# version: '3.8'
+# services:
+#   db:
+#     image: postgres
+#     container_name: postgres
+#     environment:
+#       POSTGRES_DB: fusiondb
+#       POSTGRES_USER: egor
+#       POSTGRES_PASSWORD: fusion
+#     ports:
+#       - "5433:5432"
+#     volumes:
+#       - /home/fusion/works/billing-job/src/sql/:/mnt/:rw
+
+# version: '3.1'
+# services:
+#   db:
+#     image: mysql
+#     environment:
+#       MYSQL_DATABASE: fusiondb
+#       MYSQL_USER: egor
+#       MYSQL_PASSWORD: fusion
+#       MYSQL_ROOT_PASSWORD: fusion
+#     ports:
+#       - "3307:3306"
