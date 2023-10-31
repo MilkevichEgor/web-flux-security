@@ -33,6 +33,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public Mono<AuthResponseDto> authentication(@RequestBody AuthRequestDto dto) {
+        sink.emitNext("Welcome " + dto.getUsername(), Sinks.EmitFailureHandler.FAIL_FAST);
         return authService.authenticateUser(dto);
     }
 

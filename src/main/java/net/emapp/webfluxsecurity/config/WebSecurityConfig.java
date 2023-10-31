@@ -30,7 +30,7 @@ public class WebSecurityConfig {
     private String secret;
 
     private final String [] publicRoutes = {
-        "/api/auth/register", "/api/auth/login", "/test"
+        "/api/auth/register", "/api/auth/login", "/ws/message"
     };
 
     private final String [] adminRoutes = {
