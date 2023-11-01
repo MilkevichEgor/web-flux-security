@@ -4,24 +4,24 @@ server:
 spring:
   flyway:
     enabled: true
-    url: jdbc:postgresql://localhost:5433/fusiondb
+    url: jdbc:postgresql://db/fusiondb
     user: egor
     password: fusion
     locations: classpath:db/migration
-    baselineOnMigrate: true
+#    baselineOnMigrate: true
     logging: true
   r2dbc:
 #    url: ${DB_NAME}
 #    user: ${DB_USER}
 #    password: ${DB_PASSWORD}
-    url: r2dbc:postgresql://localhost:5433/fusiondb
+    url: r2dbc:postgresql://db/fusiondb
     username: egor
     password: fusion
   rabbitmq:
-    host: localhost
+    host: rabbit-mq
     port: 5672
-    username: user
-    password: password
+    username: egor
+    password: fusion
 
 logging:
   level:

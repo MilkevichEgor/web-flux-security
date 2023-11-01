@@ -1,5 +1,20 @@
 version: '3.8'
 services:
+
+  spring:
+    image: app:0.0.1
+    container_name: spring
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - db
+      - rabbit-mq
+    environment: 
+      - SPRING_DATASOURCE_URL= r2dbc:postgresql://db/fusiondb
+
   db:
     image: postgres
     container_name: postgres
@@ -8,8 +23,17 @@ services:
       POSTGRES_USER: egor
       POSTGRES_PASSWORD: fusion
     ports:
-      - "5433:5432"
+      - "5433:5432"    
+
   rabbit-mq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_USER: egor
+      RABBITMQ_PASS: fusion
+    ports:
+      - 5672:5672
+      - 15672:15672
     
 
     # volumes:
