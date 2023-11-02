@@ -2,6 +2,9 @@ server:
   port: 8083
 
 spring:
+  config:
+    activate:
+      on-profile: prod
   flyway:
     enabled: true
     url: jdbc:postgresql://db/fusiondb
@@ -18,10 +21,10 @@ spring:
     username: egor
     password: fusion
   rabbitmq:
-    host: rabbit-mq
+    host: localhost
     port: 5672
-    username: egor
-    password: fusion
+    username: user
+    password: password
 
 logging:
   level:

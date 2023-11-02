@@ -13,7 +13,7 @@ services:
       - db
       - rabbit-mq
     environment: 
-      - SPRING_DATASOURCE_URL= r2dbc:postgresql://db/fusiondb
+      - SPRING_DATASOURCE_URL= r2dbc:postgresql://localhost:5433/fusiondb
 
   db:
     image: postgres
@@ -27,10 +27,14 @@ services:
 
   rabbit-mq:
     image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    restart: always
     container_name: rabbitmq
     environment:
-      RABBITMQ_USER: egor
-      RABBITMQ_PASS: fusion
+      RABBITMQ_DEFAULT_USER: egor
+      RABBITMQ_DEFAULT_PASS: fusion
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq  
     ports:
       - 5672:5672
       - 15672:15672
