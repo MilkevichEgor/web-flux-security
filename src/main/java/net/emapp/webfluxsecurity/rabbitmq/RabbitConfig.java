@@ -14,7 +14,7 @@ public class RabbitConfig {
 
     @Bean
     public CachingConnectionFactory cachingConnectionFactoryFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("rabbit-mq");
         cachingConnectionFactory.setUsername("egor");
         cachingConnectionFactory.setPassword("fusion");
         cachingConnectionFactory.setVirtualHost("test");

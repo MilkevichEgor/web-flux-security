@@ -14,7 +14,7 @@ public class WebFluxSecurityApplication {
 //		SpringApplication.run(WebFluxSecurityApplication.class, args);
 		SpringApplication application = new SpringApplication(WebFluxSecurityApplication.class);
 		application.setBannerMode(Banner.Mode.OFF);
-		application.setAdditionalProfiles("dev");
+		application.setAdditionalProfiles("prod");
 		application.run(args);
 	}
 
