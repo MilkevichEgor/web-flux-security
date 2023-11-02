@@ -21,10 +21,10 @@ spring:
     username: egor
     password: fusion
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
-    username: user
-    password: password
+    username: egor
+    password: fusion
 
 logging:
   level:

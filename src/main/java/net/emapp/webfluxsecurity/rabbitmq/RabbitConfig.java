@@ -15,8 +15,8 @@ public class RabbitConfig {
     @Bean
     public CachingConnectionFactory cachingConnectionFactoryFactory() {
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
-        cachingConnectionFactory.setUsername("user");
-        cachingConnectionFactory.setPassword("password");
+        cachingConnectionFactory.setUsername("egor");
+        cachingConnectionFactory.setPassword("fusion");
         cachingConnectionFactory.setVirtualHost("test");
         return cachingConnectionFactory;
     }
@@ -33,7 +33,7 @@ public class RabbitConfig {
 
     @Bean
     public Queue myQueue() {
-        return new Queue("queue");
+        return new Queue("queueTest");
     }
 
     @Bean
