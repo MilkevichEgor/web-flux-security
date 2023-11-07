@@ -5,8 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import net.emapp.webfluxsecurity.dto.UserDto;
 import net.emapp.webfluxsecurity.entity.UserEntity;
 import net.emapp.webfluxsecurity.entity.UserRole;
+import net.emapp.webfluxsecurity.exception.RegisterException;
 import net.emapp.webfluxsecurity.mapper.UserMapper;
 import net.emapp.webfluxsecurity.repository.UserRepository;
+import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -20,19 +22,54 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final DatabaseClient databaseClient;
+
+//    findOrCreate({
+//       username: 'qweqwe',
+//    }, {
+//        username: 'qweqwe',
+//        lastname: 'asdasd',
+//        yes: 'no'
+//    });
+//    Задача уведомить пользователя, о том что его username уже занят
 
     public Mono<UserEntity> registerUser(UserEntity user) {
-        return userRepository.save(user.toBuilder()
-                .password(passwordEncoder.encode(user.getPassword()))
-                .role(UserRole.USER)
-                .enabled(true)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build()
-        ).doOnSuccess(u -> {
-            log.info("IN registerUser - user: {}", u);
-        });
+        // Attempt to find a user with the same username
+        return userRepository.findByUsername(user.getUsername())
+                .flatMap(existingUser -> {
+                    if (existingUser.getUsername().equals(user.getUsername())) {
+                        return Mono.error(new RegisterException("Username is already taken.", "USERNAME_TAKEN"));
+                    }
+                    return Mono.just(existingUser);
+                })
+                .switchIfEmpty(Mono.defer(() -> {
+                    UserEntity newUser = user.toBuilder()
+                            .password(passwordEncoder.encode(user.getPassword()))
+                            .role(UserRole.USER)
+                            .enabled(true)
+                            .createdAt(LocalDateTime.now())
+                            .updatedAt(LocalDateTime.now())
+                            .build();
+                    return userRepository.save(newUser);
+                }))
+                .doOnSuccess(u -> {
+                    log.info("IN registerUser - user: {}", u);
+                });
     }
+
+//    public Mono<UserEntity> registerUser(UserEntity user) {
+//        // findOrCreate -> [instance, bool]
+//        return userRepository.save(user.toBuilder()
+//                .password(passwordEncoder.encode(user.getPassword()))
+//                .role(UserRole.USER)
+//                .enabled(true)
+//                .createdAt(LocalDateTime.now())
+//                .updatedAt(LocalDateTime.now())
+//                .build()
+//        ).doOnSuccess(u -> {
+//            log.info("IN registerUser - user: {}", u);
+//        });
+//    }
 
     public Mono<UserEntity> getUserById(Long id) {
         return userRepository.findById(id);
