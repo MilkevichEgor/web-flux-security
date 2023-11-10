@@ -1,11 +1,14 @@
 package net.emapp.webfluxsecurity.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -32,6 +35,5 @@ public class UserEntity {
     private String maskPassword() {
         return "********";
     }
-
 
 }

@@ -8,7 +8,6 @@ import net.emapp.webfluxsecurity.entity.UserRole;
 import net.emapp.webfluxsecurity.exception.RegisterException;
 import net.emapp.webfluxsecurity.mapper.UserMapper;
 import net.emapp.webfluxsecurity.repository.UserRepository;
-import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -22,19 +21,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
-    private final DatabaseClient databaseClient;
 
-//    findOrCreate({
-//       username: 'qweqwe',
-//    }, {
-//        username: 'qweqwe',
-//        lastname: 'asdasd',
-//        yes: 'no'
-//    });
-//    Задача уведомить пользователя, о том что его username уже занят
 
     public Mono<UserEntity> registerUser(UserEntity user) {
-        // Attempt to find a user with the same username
+
         return userRepository.findByUsername(user.getUsername())
                 .flatMap(existingUser -> {
                     if (existingUser.getUsername().equals(user.getUsername())) {
