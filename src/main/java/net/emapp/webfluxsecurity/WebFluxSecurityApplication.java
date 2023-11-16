@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 
+/**
+ * Application entry point.
+ */
+
 @SpringBootApplication
 public class WebFluxSecurityApplication {
 
